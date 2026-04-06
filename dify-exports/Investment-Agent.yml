@@ -183,7 +183,7 @@ workflow:
           reranking_enable: false
           reranking_mode: weighted_score
           score_threshold: null
-          top_k: 4
+          top_k: 5
           weights:
             keyword_setting:
               keyword_weight: 0.3

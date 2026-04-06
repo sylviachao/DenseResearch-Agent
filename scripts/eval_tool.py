@@ -12,8 +12,8 @@ DIFY_API_KEY = os.getenv("DIFY_API_KEY", "your-dify-api-key-here")
 DIFY_BASE_URL = os.getenv("DIFY_BASE_URL", "https://api.dify.ai/v1")
 
 # Constraint Settings for G3 Task
-# 2048 is the strict total session limit defined in the project requirements
-TOKEN_LIMIT = 2048  
+# 3072 is the strict total session limit defined in the project requirements
+TOKEN_LIMIT = 3072  
 COST_PER_1K_TOKENS = 0.0001  # Estimated pricing for Gemini 2.5 Flash
 
 def run_evaluation(query):

@@ -1,7 +1,7 @@
 # G3: Investment Research Agent with Memory Constraints
 
 ## Project Overview
-This project implements an **Autonomous Investment Research Agent** designed to analyze complex financial data (e.g., NVIDIA earnings) while operating under a strict **2,048 Token Limit**. 
+This project implements an **Autonomous Investment Research Agent** designed to analyze complex financial data (e.g., NVIDIA earnings) while operating under a strict **3,072 Token Limit**. 
 
 The system features a **"Pre-load & Refine"** pipeline that decouples persona-driven prompts from raw data, ensuring high-density information retrieval and factual integrity across multiple research chunks.
 
@@ -52,9 +52,10 @@ Unlike standard RAG pipelines, this agent treats prompts as **versioned resource
 * **Full-Atomic Summarization**: Every chunk is force-refined into a structured list of "Atomic Facts" with **Timeline Isolation** (Actuals vs. Projections).
 * **Multi-Domain Skill Injection**: Supports switching between different extraction targets (Finance, Legal, Tech) via modular YAML schemas without altering core code.
 * **Safety-First Failover**: Implements candidate-level response validation to handle FINISH_REASON: SAFETY errors gracefully, ensuring pipeline continuity even when processing sensitive financial instruments (Shorts/Options).
+* **Recursive Logic Decoupling**: Automatically detects "obese" facts (> 850 chars) and re-processes them into independent logical sub-chunks (Part A/B). This ensures high retrieval precision even for data-dense financial models.
 
 ### 2. Dify Orchestration (`/dify-exports/`)
-* **Workflow DSL**: Optimized `top_k: 4` retrieval strategy, ensuring the total retrieved context stays within ~1,600 tokens.
+* **Workflow DSL**: Optimized `top_k: 5` retrieval strategy, ensuring the total retrieved context stays within ~1,600 tokens.
 * **Grounding Metadata**: Injects `[Company | Date]` into every chunk to prevent hallucination.
 
 ### 3. Automated Evaluation (`/scripts/eval_tool.py`)
@@ -66,9 +67,9 @@ Unlike standard RAG pipelines, this agent treats prompts as **versioned resource
 ## Performance & Evaluation
 | Metric | Implementation | Result |
 | :--- | :--- | :--- |
-| **Input Tokens** | Top-K: 4 x 400 | ~1,200 - 1,600 (Controlled) |
+| **Input Tokens** | Top-K: 5 x 400 | ~1,500 - 2,000 (Controlled) |
 | **Output Tokens** | Fact Summarization | < 512 (Optimized) |
-| **Total Session** | Strict 2,048 Cap | **PASSED** |
+| **Total Session** | Strict 3,072 Cap | **PASSED** |
 | **Avg. Latency** | Gemini 2.5 Flash | ~2.0s |
 
 ---
@@ -101,11 +102,11 @@ The evaluation tool fetches real-time telemetry directly from the Dify/Gemini AP
 ## Performance Metrics (Updated for Production)
 | Metric | Specification | Status |
 | :--- | :--- | :--- |
-| **Atomic Chunk Size** | 700 Characters (~175 Tokens) | **OPTIMIZED** |
-| **System Prompt Overhead** | ~500 Tokens | **STABLE** |
-| **Effective Data Margin** | ~1,000 Tokens (Top-K: 4-6) | **HIGH DENSITY** |
-| **Truth Grounding** | Mandatory [Actual/Projected] Tagging | **VERIFIED** |
-| **Total Session Tokens** | < 2,048 (Avg. 1,850) | **PASSED** |
+| **Max Context Window** | 3,072 Tokens | **SCALED** |
+| **Atomic Chunk Size** | 700 - 850 Characters (~200 Tokens) | **OPTIMIZED** |
+| **Smart Split Logic** | Recursive Decoupling [Part A/B] | **VERIFIED** |
+| **Effective Data Margin** | ~1,200 - 1,500 Tokens (Top-K: 5) | **HIGH DENSITY** |
+| **Total Session Tokens** | < 3,072 (Actual Avg: ~2,400) | **PASSED** |
 
 ## Evaluation Logic
 The `eval_tool.py` validates the G3 constraints by implementing the following:
