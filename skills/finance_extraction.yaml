@@ -1,0 +1,21 @@
+skill_name: "Financial Quantitative Extraction"
+description: "Extracts market pricing, derivative structures, and forward-looking valuation metrics."
+slots:
+  market_valuation:
+    - "Ticker/Company Name"
+    - "Closing Price (with Date/Time)"
+    - "Historical Troughs/Peaks (referenced in text)"
+  derivative_strategy:
+    - "Option Type (Put/Call)"
+    - "Yield Percentage"
+    - "Strike Price vs. Current Price %"
+    - "Expiration/Duration"
+  fundamental_projections:
+    - "Revenue Estimates [Projections]"
+    - "FCF Margin Percentage"
+    - "Calculated Price Target"
+rules:
+  - "Maintain original numerical precision (do not round)."
+  - "Label every figure as either [Actuals] or [Projections] based on the context."
+  - "Merge all metrics within the same slot into one high-density, complete sentence."
+  - "Strictly exclude speculative adjectives (e.g., 'massive', 'attractive')."

@@ -9,7 +9,7 @@ load_dotenv()
 # Dify API Settings
 # Ensure these are set in your .env file
 DIFY_API_KEY = os.getenv("DIFY_API_KEY", "your-dify-api-key-here")
-DIFY_BASE_URL = "https://api.dify.ai/v1"
+DIFY_BASE_URL = os.getenv("DIFY_BASE_URL", "https://api.dify.ai/v1")
 
 # Constraint Settings for G3 Task
 # 2048 is the strict total session limit defined in the project requirements

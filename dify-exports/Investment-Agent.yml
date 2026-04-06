@@ -123,33 +123,22 @@ workflow:
           variable_selector:
           - '1775433580089'
           - result
-        memory:
-          query_prompt_template: '{{#sys.query#}}
-
-
-            {{#sys.files#}}'
-          role_prefix:
-            assistant: ''
-            user: ''
-          window:
-            enabled: true
-            size: 3
         model:
           completion_params:
             max_output_tokens: 512
             temperature: 0.2
             top_p: 0.8
           mode: chat
-          name: gemini-2.5-pro
+          name: gemini-2.5-flash
           provider: langgenius/gemini/google
         prompt_template:
         - id: 1ff3f879-3c1e-4c45-95bf-ca06194881b4
           role: system
-          text: "Role: Senior Investment Analyst. \nGoal: Answer queries ONLY using\
-            \ the provided \"Atomic Facts\". Constraints:\nConcise: Keep response\
-            \ <400 tokens.\nCitations: Must cite [Chunk X] for every fact.\nNo Data:\
-            \ If missing, state: \"Data not available in memory.\"\nNo Hallucination:\
-            \ Do not invent figures."
+          text: "# Context\n{{#context#}}\n\n# Task\nAnswer \"{{#sys.query#}}\" using\
+            \ ONLY the Context above.\n# Constraints \n- Answer ONLY using data from\
+            \ Context. - Format: Bullet points only. \n- NO introductory text or summaries.\
+            \ \n- DO NOT cite sources (to save tokens). \n- Use this specific format:\
+            \ [Entity]: [Value]"
         selected: true
         title: LLM
         type: llm
@@ -158,11 +147,11 @@ workflow:
       height: 87
       id: llm
       position:
-        x: 450
-        y: 282
+        x: 364
+        y: 291
       positionAbsolute:
-        x: 450
-        y: 282
+        x: 364
+        y: 291
       selected: true
       sourcePosition: right
       targetPosition: left
@@ -177,11 +166,11 @@ workflow:
       height: 102
       id: answer
       position:
-        x: 461
-        y: 438
+        x: 650
+        y: 286
       positionAbsolute:
-        x: 461
-        y: 438
+        x: 650
+        y: 286
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -189,11 +178,20 @@ workflow:
       width: 242
     - data:
         dataset_ids:
-        - iEhFMVnoGm6G0uWqzDAhxDpMWsbSLNWJuzI5AUXf8jgIQ0d4Wt+j0Jn+JAqwF7X7
+        - N3L51i5zwGaDBaal9h+pYCHtErl74uKUiFM300PhEA0lyQ8S1UPizilkoqFlSRg3
         multiple_retrieval_config:
           reranking_enable: false
-          reranking_mode: reranking_model
+          reranking_mode: weighted_score
+          score_threshold: null
           top_k: 4
+          weights:
+            keyword_setting:
+              keyword_weight: 0.3
+            vector_setting:
+              embedding_model_name: gemini-embedding-001
+              embedding_provider_name: langgenius/gemini/google
+              vector_weight: 0.7
+            weight_type: customized
         query_attachment_selector: []
         query_variable_selector:
         - '1775433536554'
@@ -202,21 +200,21 @@ workflow:
         selected: false
         title: Knowledge Retrieval
         type: knowledge-retrieval
-      height: 89
+      height: 51
       id: '1775433580089'
       position:
-        x: 170
-        y: 304
+        x: 115
+        y: 291
       positionAbsolute:
-        x: 170
-        y: 304
+        x: 115
+        y: 291
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 242
     viewport:
-      x: 0
-      y: 0
-      zoom: 1
+      x: 178.417251749569
+      y: 94.82844490320676
+      zoom: 0.7560023142936088
   rag_pipeline_variables: []

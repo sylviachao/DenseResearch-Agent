@@ -1,0 +1,16 @@
+skill_name: "Legal & Risk Assessment"
+description: "Extracts binding clauses, regulatory requirements, and risk factors."
+slots:
+  contractual_terms:
+    - "Effective Date & Expiration"
+    - "Financial Obligations (Fees, Penalties)"
+    - "Termination Clauses"
+  regulatory_compliance:
+    - "Governing Laws/Jurisdictions"
+    - "Compliance Standards (e.g., GDPR, HIPAA)"
+  risk_factors:
+    - "Identified Liabilities"
+    - "Mitigation Strategies mentioned"
+rules:
+  - "Use formal, objective terminology."
+  - "Clearly distinguish between 'Mandatory' and 'Recommended' actions."

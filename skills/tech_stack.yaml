@@ -1,0 +1,17 @@
+skill_name: "Technical Architecture Discovery"
+description: "Identifies software stacks, system design patterns, and engineering constraints."
+slots:
+  core_stack:
+    - "Programming Languages"
+    - "Frameworks & Libraries (e.g., LangGraph, React)"
+    - "Infrastructure (e.g., AWS, Docker, MySQL)"
+  system_design:
+    - "Architecture Pattern (e.g., RAG, Multi-agent, Microservices)"
+    - "Data Flow/Orchestration Logic"
+  engineering_constraints:
+    - "Performance Benchmarks"
+    - "Security/Vulnerability Assessments"
+    - "Human-in-the-loop (HITL) Requirements"
+rules:
+  - "List specific versions if mentioned."
+  - "Prioritize modularity and maintainability facts."
